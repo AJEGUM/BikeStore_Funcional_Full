@@ -1,0 +1,92 @@
+npm install express mysql2 dotenv cors multer bcrypt jsonwebtoken
+npm install --save-dev nodemon
+
+correr proyecto:
+    node server.js
+    npm run dev 
+
+Diagrama:
+flowchart TD
+    %% Global Entities
+    Client["Client (Web Browser)"]:::client
+
+    %% Frontend Layer
+    subgraph "Frontend Layer"
+        FE["Frontend (Static Assets)"]:::frontend
+    end
+
+    %% Backend Server Components
+    subgraph "Backend Server"
+        S["server.js"]:::backend
+        A["app.js"]:::backend
+    end
+
+    %% API Routes
+    subgraph "API Routes"
+        PR["personas.routes.js"]:::routes
+        IR["imagenes.routes.js"]:::routes
+    end
+
+    %% Middleware Layer
+    subgraph "Middleware"
+        MU["uploads.js"]:::middleware
+    end
+
+    %% Controllers Layer
+    subgraph "Controllers"
+        CC["crud.controller.js"]:::controller
+        IC["imagenes.controller.js"]:::controller
+    end
+
+    %% Database Components
+    subgraph "MySQL Database"
+        DB_CFG["db.js"]:::database
+        DB_SQL["CRUD_DB.sql"]:::database
+    end
+
+    %% Dependency Documentation
+    Dep["Dependency Documentation"]:::dependency
+
+    %% Connections/Flow
+    Client -->|"accesses"| FE
+    FE -->|"sends request"| S
+    FE -->|"sends request"| A
+
+    S -->|"handles API"| PR
+    A -->|"handles API"| IR
+
+    PR -->|"preprocessed by"| MU
+    IR -->|"preprocessed by"| MU
+
+    MU -->|"delegates to"| CC
+    MU -->|"delegates to"| IC
+
+    CC -->|"queries"| DB_CFG
+    CC -->|"queries"| DB_SQL
+    IC -->|"queries"| DB_CFG
+    IC -->|"queries"| DB_SQL
+
+    S -.->|"references"| Dep
+
+    %% Click Events
+    click FE "https://github.com/dhaniel-05/crud_aprendizaje_node_js/tree/main/src/frontend"
+    click S "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/server.js"
+    click A "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/app.js"
+    click PR "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/routes/personas.routes.js"
+    click IR "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/routes/imagenes.routes.js"
+    click CC "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/controllers/crud.controller.js"
+    click IC "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/controllers/imagenes.controller.js"
+    click MU "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/middlewares/uploads.js"
+    click DB_CFG "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/config/db.js"
+    click DB_SQL "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/mysql_db/CRUD_DB.sql"
+    click Dep "https://github.com/dhaniel-05/crud_aprendizaje_node_js/blob/main/src/dependencias/dependencias.txt"
+
+    %% Styles
+    classDef client fill:#FFF3B0,stroke:#B58900,stroke-width:2px;
+    classDef frontend fill:#AEDFF7,stroke:#0077B6,stroke-width:2px;
+    classDef backend fill:#F7D6C1,stroke:#D9534F,stroke-width:2px;
+    classDef routes fill:#C1E1C1,stroke:#28A745,stroke-width:2px;
+    classDef middleware fill:#FFF4C1,stroke:#FFC107,stroke-width:2px;
+    classDef controller fill:#D1C4E9,stroke:#6F42C1,stroke-width:2px;
+    classDef database fill:#FAD4D4,stroke:#DC3545,stroke-width:2px;
+    classDef dependency fill:#E2E3E5,stroke:#6C757D,stroke-width:2px;

@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+}
+header {
+    background: #eaeaea;
+    padding: 20px 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+}
+.logo img {
+    height: 60px;
+    margin-right: 10px;
+}
+.logo span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+nav {
+    margin-right: 40px;
+}
+nav a {
+    text-decoration: none;
+    color: #222;
+    margin-left: 30px;
+    font-size: 1.1rem;
+}
+#userSection {
+    display: inline-block;
+    margin-left: 30px;
+}
+#userName {
+    font-weight: bold;
+    margin-right: 10px;
+}
+#logoutBtn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+main {
+    text-align: center;
+    margin-top: 40px;
+}
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+.productos-destacados {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.productos {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+.producto {
+    display: inline-block;
+    vertical-align: top;
+    margin: 16px 12px 24px 12px;
+    padding: 18px 16px 14px 16px;
+    border: 1.5px solid #b3c6e0;
+    border-radius: 14px;
+    min-width: 220px;
+    max-width: 260px;
+    background: #f7fafd;
+    box-shadow: 0 2px 12px #0001;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+.producto:hover {
+    background: #eaf1fb;
+    box-shadow: 0 4px 18px #0002;
+}
+.producto img {
+    max-width: 120px;
+    max-height: 80px;
+    margin-top: 8px;
+    border-radius: 6px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.producto-nombre {
+    font-weight: bold;
+    margin: 8px 0 4px 0;
+    text-align: center;
+}
+.producto-precio {
+    color: #217dbb;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.agregar-carrito-btn {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 16px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 4px 2px;
+    transition: background 0.2s;
+}
+.agregar-carrito-btn:hover {
+    background: #217dbb;
+}
+.footer {
+    margin: 40px 0 20px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+@media (max-width: 900px) {
+    .productos {
+        flex-direction: column;
+        align-items: center;
+    }
+} 

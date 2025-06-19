@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de Venta - Panel de Administración</title>
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+    <header>
+        <nav style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <h1 style="display:inline-block; margin-right: 30px;">Panel de Administración</h1>
+                <a href="panel.html">Productos</a>
+                <a href="stock.html">Stock</a>
+                <a href="usuarios.html">Usuarios</a>
+                <a href="ventas.html">Ventas</a>
+                <a href="detalle_venta.html">Detalles de Venta</a>
+            </div>
+            <div id="userSection">
+                <span id="userName"></span>
+                <button id="logoutBtn" style="display: none;">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h2>Detalles de Venta</h2>
+        <div id="detalleVentasContainer" style="padding-left:40px;padding-right:40px;">
+            <table id="tablaDetalleVentas" style="border-collapse:collapse;width:100%;margin-top:20px;">
+                <thead>
+                    <tr>
+                        <th>ID Detalle</th>
+                        <th>ID Venta</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="mensajeDetalleVentas"></div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = document.getElementById('userName');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const usuario = JSON.parse(localStorage.getItem('usuario'));
+            if (usuario && usuario.rol === 'admin') {
+                userName.textContent = `Administrador: ${usuario.nombre}`;
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                window.location.href = 'iniciar.html';
+            }
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('usuario');
+                window.location.href = 'iniciar.html';
+            });
+
+            const tablaDetalleVentas = document.getElementById('tablaDetalleVentas').querySelector('tbody');
+            const mensajeDetalleVentas = document.getElementById('mensajeDetalleVentas');
+
+            async function cargarDetalles() {
+                tablaDetalleVentas.innerHTML = '<tr><td colspan="5">Cargando...</td></tr>';
+                try {
+                    const [detallesResp, productosResp] = await Promise.all([
+                        fetch('http://localhost:3000/api/ventas/detalles/all'),
+                        fetch('http://localhost:3000/api/productos')
+                    ]);
+                    const detalles = await detallesResp.json();
+                    const productos = await productosResp.json();
+                    function getNombreProducto(id) {
+                        const p = productos.find(p => p.id_producto === id);
+                        return p ? p.nombre : id;
+                    }
+                    if (!Array.isArray(detalles) || detalles.length === 0) {
+                        tablaDetalleVentas.innerHTML = '<tr><td colspan="5">No hay detalles de venta registrados.</td></tr>';
+                        return;
+                    }
+                    tablaDetalleVentas.innerHTML = detalles.map((d, idx) => `
+                        <tr class="${idx % 2 === 0 ? 'even-row' : 'odd-row'}">
+                            <td>${d.id_detalle_venta}</td>
+                            <td>${d.id_venta}</td>
+                            <td>${getNombreProducto(d.id_producto)}</td>
+                            <td>${d.cantidad_producto}</td>
+                            <td>$${d.precio_unitario}</td>
+                        </tr>
+                    `).join('');
+                } catch (error) {
+                    tablaDetalleVentas.innerHTML = '<tr><td colspan="5">Error al cargar detalles de venta.</td></tr>';
+                }
+            }
+            cargarDetalles();
+        });
+    </script>
+    <style>
+    #tablaDetalleVentas {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+    #tablaDetalleVentas th, #tablaDetalleVentas td {
+      border: 1px solid #b3c6e0;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    #tablaDetalleVentas th {
+      background: #eaf1fb;
+      color: #222;
+    }
+    .even-row { background: #f7fafd; }
+    .odd-row { background: #fff; }
+    </style>
+</body>
+</html> 
