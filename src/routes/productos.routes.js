@@ -84,7 +84,10 @@ router.get('/', async (req, res) => {
     try {
         const productos = await productosController.obtenerTodos();
         
-        res.json(productos);
+        res.json({
+            success: true,
+            data: productos
+        });
         
     } catch (error) {
         console.error('Error al obtener productos:', error);

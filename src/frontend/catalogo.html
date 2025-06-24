@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - Bike Store</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../bicicleta1.jpg" alt="Logo Bike Store">
+            <span>Bike Store</span>
+        </div>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <div id="userSection">
+                <span id="userName"></span>
+                <button id="carritoBtn">Ver carrito (<span id="carritoCantidad">0</span>)</button>
+                <button id="logoutBtn" style="display: none;">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Catálogo de Productos</h1>
+
+        <div class="filtros-container">
+            <form id="filtrosForm">
+                <div class="filtro-grupo">
+                    <label for="nombreBusqueda">Buscar por nombre:</label>
+                    <input type="text" id="nombreBusqueda" placeholder="Ej: Bicicleta de montaña">
+                </div>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+
+        <div class="productos" id="productosContainer">
+            <!-- Los productos se cargarán aquí -->
+        </div>
+    </main>
+
+    <div id="carritoModal">
+        <div class="modal-content">
+            <button class="cerrar-modal" id="cerrarCarrito">X</button>
+            <h3>Carrito de Compras</h3>
+            <div id="carritoContenido"></div>
+        </div>
+    </div>
+
+    <script src="catalogo.js"></script>
+</body>
+</html> 
