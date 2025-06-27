@@ -65,12 +65,14 @@
                 try {
                     const [detallesResp, productosResp] = await Promise.all([
                         fetch('http://localhost:3000/api/ventas/detalles/all'),
-                        fetch('http://localhost:3000/api/productos')
+                        fetch('http://localhost:3000/api/productos/nombres')
                     ]);
-                    const detalles = await detallesResp.json();
-                    const productos = await productosResp.json();
+                    const detallesRaw = await detallesResp.json();
+                    const detalles = detallesRaw.value || detallesRaw.data || detallesRaw; // Soporta ambos formatos
+                    const productosRaw = await productosResp.json();
+                    const productos = productosRaw.data || productosRaw;
                     function getNombreProducto(id) {
-                        const p = productos.find(p => p.id_producto === id);
+                        const p = productos.find(p => p.id_producto == id);
                         return p ? p.nombre : id;
                     }
                     if (!Array.isArray(detalles) || detalles.length === 0) {

@@ -365,6 +365,20 @@ class ProductosController {
             throw error;
         }
     }
+
+    /**
+     * Obtener solo id y nombre de todos los productos (sin imagen ni binarios)
+     */
+    async obtenerSoloNombres() {
+        try {
+            const query = `SELECT id_producto, nombre FROM productos ORDER BY id_producto DESC`;
+            const [rows] = await db.execute(query);
+            return rows;
+        } catch (error) {
+            console.error('Error en obtenerSoloNombres:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = new ProductosController();

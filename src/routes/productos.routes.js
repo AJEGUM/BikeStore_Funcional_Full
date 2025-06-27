@@ -79,6 +79,23 @@ const validarId = (req, res, next) => {
     next();
 };
 
+// GET /api/productos/nombres - Solo id y nombre de productos (sin imagen ni binarios)
+router.get('/nombres', async (req, res) => {
+    try {
+        const productos = await productosController.obtenerSoloNombres();
+        res.json({
+            success: true,
+            data: productos
+        });
+    } catch (error) {
+        console.error('Error al obtener nombres de productos:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error interno del servidor'
+        });
+    }
+});
+
 // GET /api/productos - Obtener todos los productos
 router.get('/', async (req, res) => {
     try {
