@@ -107,10 +107,11 @@
                     // Obtener usuarios y productos para mostrar nombres
                     const [usuariosResp, productosResp] = await Promise.all([
                         fetch('http://localhost:3000/api/usuarios'),
-                        fetch('http://localhost:3000/api/productos')
+                        fetch('http://localhost:3000/api/productos/nombres')
                     ]);
                     const usuarios = await usuariosResp.json();
-                    const productos = await productosResp.json();
+                    const productosRaw = await productosResp.json();
+                    const productos = productosRaw.data || productosRaw;
                     function getNombreUsuario(id) {
                         const u = usuarios.find(u => u.id_usuario === id);
                         return u ? `${u.nombre} ${u.apellido}` : id;
