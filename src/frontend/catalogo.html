@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="../bicicleta1.jpg" alt="Logo Bike Store">
+            <img src="logo.png" alt="Logo Bike Store" style="height: 60px;">
             <span>Bike Store</span>
         </div>
         <nav>
@@ -18,6 +18,7 @@
             <div id="userSection">
                 <span id="userName"></span>
                 <button id="carritoBtn">Ver carrito (<span id="carritoCantidad">0</span>)</button>
+                <button id="loginBtn" style="display: none;">Iniciar Sesión</button>
                 <button id="logoutBtn" style="display: none;">Cerrar Sesión</button>
             </div>
         </nav>
@@ -56,6 +57,31 @@
             <div id="carritoContenido"></div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Logo Bike Store" style="height: 50px;">
+                <span class="footer-title">BIKE STORE</span>
+            </div>
+            <div class="footer-social">
+                <a href="#" title="Facebook" target="_blank" class="footer-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H6v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a href="#" title="Instagram" target="_blank" class="footer-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
+                </a>
+                <a href="#" title="WhatsApp" target="_blank" class="footer-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.67 20.13a10 10 0 1 0-3.54 3.54l2.2-.63a1 1 0 0 0 .7-.7z"></path><path d="M8.54 15.54a6.5 6.5 0 0 1 7.92-7.92l.54.54a1 1 0 0 1 0 1.41l-1.09 1.09a1 1 0 0 1-1.41 0l-.54-.54a4.5 4.5 0 0 0-5.66 5.66l.54.54a1 1 0 0 1 0 1.41l-1.09 1.09a1 1 0 0 1-1.41 0z"></path></svg>
+                </a>
+            </div>
+            <div class="footer-contact">
+                <span>+57 300 123 4567</span>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer -->
 
     <script src="catalogo.js"></script>
 </body>

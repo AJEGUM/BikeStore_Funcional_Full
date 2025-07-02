@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         tablaVentas.innerHTML = '<tr><td colspan="5">Cargando...</td></tr>';
         try {
             const response = await fetch('http://localhost:3000/api/ventas');
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
+            }
             const ventas = await response.json();
             if (!Array.isArray(ventas) || ventas.length === 0) {
                 tablaVentas.innerHTML = '<tr><td colspan="5">No hay ventas registradas.</td></tr>';
@@ -32,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch('http://localhost:3000/api/usuarios'),
                 fetch('http://localhost:3000/api/productos/nombres')
             ]);
+            
+            if (!usuariosResp.ok) {
+                throw new Error(`Error al obtener usuarios: ${usuariosResp.status}`);
+            }
+            if (!productosResp.ok) {
+                throw new Error(`Error al obtener productos: ${productosResp.status}`);
+            }
+            
             const usuarios = await usuariosResp.json();
             const productosRaw = await productosResp.json();
             const productos = productosRaw.data || productosRaw;
@@ -91,7 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         } catch (error) {
-            tablaVentas.innerHTML = '<tr><td colspan="5">Error al cargar ventas.</td></tr>';
+            console.error('Error al cargar ventas:', error);
+            tablaVentas.innerHTML = `<tr><td colspan="5">Error al cargar ventas: ${error.message}</td></tr>`;
         }
     }
     cargarVentas();

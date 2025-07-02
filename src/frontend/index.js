@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const productosContainer = document.getElementById('productosContainer');
-    const filtrosForm = document.getElementById('filtrosForm');
-    const nombreBusqueda = document.getElementById('nombreBusqueda');
     
     let productosMostrados = [];
 
@@ -25,52 +23,49 @@ document.addEventListener('DOMContentLoaded', () => {
         asignarEventosCarrito();
     }
 
-    // --- Cargar y buscar productos ---
-    async function buscarProductos() {
+    // --- Cargar productos ---
+    async function cargarProductos() {
         productosContainer.innerHTML = 'Cargando...';
-        
-        const params = new URLSearchParams();
-        if (nombreBusqueda.value) {
-            params.append('nombre', nombreBusqueda.value);
-        }
 
         try {
-            const endpoint = nombreBusqueda.value ? `http://localhost:3000/api/productos/buscar?${params.toString()}` : 'http://localhost:3000/api/productos';
-            const response = await fetch(endpoint);
+            const response = await fetch('http://localhost:3000/api/productos');
             const data = await response.json();
             if (response.ok && data.success) {
                 mostrarProductos(data.data);
             } else {
-                productosContainer.innerHTML = '<p>Error al buscar productos.</p>';
+                productosContainer.innerHTML = '<p>Error al cargar productos.</p>';
             }
         } catch (error) {
             console.error('Error:', error);
-            productosContainer.innerHTML = '<p>Error de conexión al buscar productos.</p>';
+            productosContainer.innerHTML = '<p>Error de conexión al cargar productos.</p>';
         }
     }
 
-    filtrosForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        buscarProductos();
-    });
+
 
     // --- Lógica de sesión de usuario ---
     const userSection = document.getElementById('userSection');
     const userName = document.getElementById('userName');
+    const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const usuario = JSON.parse(localStorage.getItem('usuario'));
     
     if (usuario) {
         userName.textContent = `Bienvenido, ${usuario.nombre}`;
+        loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-block';
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('usuario');
             localStorage.removeItem('carrito');
-            window.location.href = 'iniciar.html';
+            window.location.href = 'index.html';
         });
     } else {
-         // Opcional: Redirigir si no hay sesión
-         // window.location.href = 'iniciar.html';
+        userName.textContent = '';
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+        loginBtn.addEventListener('click', () => {
+            window.location.href = 'iniciar.html';
+        });
     }
 
     // --- Lógica del carrito ---
@@ -198,14 +193,53 @@ document.addEventListener('DOMContentLoaded', () => {
             if (carrito.length === 0) return;
             const usuario = JSON.parse(localStorage.getItem('usuario'));
             if (!usuario) {
-                alert('Debes iniciar sesión para comprar.');
+                alert('Debes iniciar sesión para realizar una compra.');
+                window.location.href = 'iniciar.html';
                 return;
             }
-            // Lógica de finalizar compra...
+            const metodoPago = document.getElementById('metodoPago').value;
+            const numeroTarjeta = document.getElementById('numeroTarjeta').value;
+            if ((metodoPago === 'visa' || metodoPago === 'mastercard' || metodoPago === 'maestro') && !numeroTarjeta) {
+                alert('Por favor ingresa el número de tarjeta.');
+                return;
+            }
+            try {
+                const venta = {
+                    id_usuario: usuario.id_usuario,
+                    total: carrito.reduce((acc, item) => acc + (item.precio_venta * item.cantidad), 0),
+                    metodo_pago: metodoPago,
+                    numero_tarjeta: numeroTarjeta,
+                    productos: carrito.map(item => ({
+                        id_producto: item.id_producto,
+                        cantidad: item.cantidad,
+                        precio_unitario: item.precio_venta
+                    }))
+                };
+                const response = await fetch('http://localhost:3000/api/ventas/registrar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(venta)
+                });
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    alert('¡Compra realizada con éxito!');
+                    carrito = [];
+                    localStorage.removeItem('carrito');
+                    actualizarCarritoCantidad();
+                    carritoModal.style.display = 'none';
+                } else {
+                    alert(`Error al procesar la compra: ${data.message || 'Error desconocido'}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error de conexión al procesar la compra.');
+            }
         });
     }
 
     // --- Inicialización ---
     actualizarCarritoCantidad();
-    buscarProductos(); // Carga inicial de todos los productos
+    cargarProductos(); // Carga inicial de todos los productos
 }); 

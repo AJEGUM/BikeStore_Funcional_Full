@@ -79,20 +79,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de sesión de usuario ---
     const userSection = document.getElementById('userSection');
     const userName = document.getElementById('userName');
+    const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const usuario = JSON.parse(localStorage.getItem('usuario'));
     
     if (usuario) {
         userName.textContent = `Bienvenido, ${usuario.nombre}`;
+        loginBtn.style.display = 'none';
         logoutBtn.style.display = 'inline-block';
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('usuario');
             localStorage.removeItem('carrito');
-            window.location.href = 'iniciar.html';
+            window.location.href = 'catalogo.html';
         });
     } else {
-         // Opcional: Redirigir si no hay sesión
-         // window.location.href = 'iniciar.html';
+        userName.textContent = '';
+        loginBtn.style.display = 'inline-block';
+        logoutBtn.style.display = 'none';
+        loginBtn.addEventListener('click', () => {
+            window.location.href = 'iniciar.html';
+        });
     }
 
     // --- Lógica del carrito ---
