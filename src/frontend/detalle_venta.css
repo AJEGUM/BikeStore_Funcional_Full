@@ -1,0 +1,17 @@
+#tablaDetalleVentas {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+#tablaDetalleVentas th, #tablaDetalleVentas td {
+  border: 1px solid #b3c6e0;
+  padding: 8px 10px;
+  text-align: left;
+}
+#tablaDetalleVentas th {
+  background: #eaf1fb;
+  color: #222;
+}
+.even-row { background: #f7fafd; }
+.odd-row { background: #fff; } 

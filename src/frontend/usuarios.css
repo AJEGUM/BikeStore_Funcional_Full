@@ -1,0 +1,40 @@
+.filtro-rol { margin-bottom: 18px; }
+#usuariosContainer {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+#tablaUsuarios {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+#tablaUsuarios th, #tablaUsuarios td {
+    border: 1px solid #b3c6e0;
+    padding: 8px 10px;
+    text-align: left;
+}
+#tablaUsuarios th {
+    background: #eaf1fb;
+    color: #222;
+}
+.even-row { background: #f7fafd; }
+.odd-row { background: #fff; }
+#formEditarUsuario {
+    background: #f7fafd;
+    border: 2px solid #b3c6e0;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 30px auto 0 auto;
+    padding: 24px 28px 18px 28px;
+    box-shadow: 0 2px 12px #0002;
+}
+#formEditarUsuario h3 {
+    margin-top: 0;
+}
+#formEditarUsuario form > div {
+    margin-bottom: 12px;
+}
+#formEditarUsuario button {
+    margin-right: 10px;
+} 

@@ -251,4 +251,17 @@ h1 {
     background-color: #3498db;
     color: white;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filtros-container button:hover {
+    background-color: #217dbb;
+}
+
+.filtros-container button#limpiarFiltros {
+    background-color: #95a5a6;
+}
+
+.filtros-container button#limpiarFiltros:hover {
+    background-color: #7f8c8d;
 } 

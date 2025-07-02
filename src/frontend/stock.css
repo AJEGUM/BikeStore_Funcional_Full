@@ -1,0 +1,84 @@
+.stock-alert { 
+    background: #ffeaea !important; 
+    color: #c0392b; 
+    font-weight: bold; 
+}
+
+.stock-table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin: 30px auto 0 auto; 
+}
+
+.stock-table th, .stock-table td { 
+    border: 1px solid #ccc; 
+    padding: 8px; 
+    text-align: left; 
+}
+
+.stock-table th { 
+    background: #f4f4f4; 
+}
+
+.stock-table tr:nth-child(even) { 
+    background: #fafafa; 
+}
+
+.stock-table input[type='number'] { 
+    width: 70px; 
+    padding: 3px; 
+}
+
+.guardar-btn { 
+    background: #222; 
+    color: #fff; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 5px 14px; 
+    cursor: pointer; 
+}
+
+#stockContainer { 
+    padding-left: 40px; 
+    padding-right: 40px; 
+}
+
+#stockContainer .stock-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+#stockContainer .stock-table th, #stockContainer .stock-table td {
+    border: 1px solid #b3c6e0;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+#stockContainer .stock-table th {
+    background: #eaf1fb;
+    color: #222;
+}
+
+#stockContainer .even-row { 
+    background: #f7fafd; 
+}
+
+#stockContainer .odd-row { 
+    background: #fff; 
+}
+
+.guardar-btn {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.guardar-btn:hover {
+    background: #217dbb;
+} 

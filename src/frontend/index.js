@@ -2,9 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const productosContainer = document.getElementById('productosContainer');
     const filtrosForm = document.getElementById('filtrosForm');
     const nombreBusqueda = document.getElementById('nombreBusqueda');
-    const precioMin = document.getElementById('precioMin');
-    const precioMax = document.getElementById('precioMax');
-    const limpiarFiltros = document.getElementById('limpiarFiltros');
     
     let productosMostrados = [];
 
@@ -42,18 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(endpoint);
             const data = await response.json();
             if (response.ok && data.success) {
-                // Filtrar por precio si se especifican
-                let productosFiltrados = data.data;
-                
-                if (precioMin.value && precioMin.value > 0) {
-                    productosFiltrados = productosFiltrados.filter(prod => prod.precio_venta >= parseFloat(precioMin.value));
-                }
-                
-                if (precioMax.value && precioMax.value > 0) {
-                    productosFiltrados = productosFiltrados.filter(prod => prod.precio_venta <= parseFloat(precioMax.value));
-                }
-                
-                mostrarProductos(productosFiltrados);
+                mostrarProductos(data.data);
             } else {
                 productosContainer.innerHTML = '<p>Error al buscar productos.</p>';
             }
@@ -65,14 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filtrosForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        buscarProductos();
-    });
-
-    // Limpiar filtros
-    limpiarFiltros.addEventListener('click', () => {
-        nombreBusqueda.value = '';
-        precioMin.value = '';
-        precioMax.value = '';
         buscarProductos();
     });
 
